@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  pegboard:
+    build: .
+    image: pegboard:latest
+
+    ports:
+      - '8000:8000'
+    restart: unless-stopped
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=django-insecure-2vpxpa3v=0kf)yix-i@=q8uf!sbnsj4c^7owj0ff@yys*=mam*
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+      - SQL_ENGINE=django.db.backends.mysql
+      - SQL_DATABASE=pegboard
+      - SQL_USER=pegboard
+      - SQL_PASSWORD=pegboard
+      - SQL_HOST=pegdb
+      - SQL_PORT=3306
+    volumes:
+        - ./app:/code
+    depends_on:
+      - pegdb
+    command: python manage.py runserver 0.0.0.0:8000
+    # command: gunicorn pegboard.wsgi:application --bind 0.0.0.0:8000
+    # uncomment the following, then start up the containers, create a
+    # login with docker exec in order to use import ipdb statements in
+    # the server code.
+    # command: /bin/bash -c /bin/bash
+    # stdin_open: true
+    # tty: true
+
+  pegdb:
+    image: mysql:8.0.28
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=pegboard
+      - MYSQL_DATABASE=pegboard
+      - MYSQL_USER=pegboard
+      - MYSQL_PASSWORD=pegboard
