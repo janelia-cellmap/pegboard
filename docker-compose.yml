@@ -1,3 +1,11 @@
+# WARNING!!!!!
+#
+# This is the development version of the compose file and should not
+# be used in production as it does not have a secure SECRET_KEY or
+# secure database passwords. In addition, it is missing an nginx frontend
+# to server up the static content when the gunicorn command is run instead
+# of the development server.
+
 version: '3'
 
 services:
@@ -24,6 +32,7 @@ services:
       - pegdb
     command: python manage.py runserver 0.0.0.0:8000
     # command: gunicorn pegboard.wsgi:application --bind 0.0.0.0:8000
+ 
     # uncomment the following, then start up the containers, create a
     # login with docker exec in order to use import ipdb statements in
     # the server code.
