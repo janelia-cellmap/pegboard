@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     environment:
       - DEBUG=1
-      - SECRET_KEY=django-insecure-2vpxpa3v=0kf)yix-i@=q8uf!sbnsj4c^7owj0ff@yys*=mam*
+      - SECRET_KEY=django-insecure-development-key-not-production
       - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
       - SQL_ENGINE=django.db.backends.mysql
       - SQL_DATABASE=pegboard
